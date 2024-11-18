@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Analysis Tool - Japan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2c2c2c;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #3c3c3c;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        label {
+            flex: 1;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        input, select {
+            flex: 2;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .buttons button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .buttons #analyzeBtn {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .buttons #analyzeBtn:hover {
+            background-color: #0056b3;
+        }
+
+        .buttons #downloadBtn {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .buttons #downloadBtn:hover {
+            background-color: #218838;
+        }
+
+        .buttons button:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+
+        #plot-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #plot {
+            width: 100%;
+            height: auto;
+            border: 1px solid white;
+            border-radius: 0;
+        }
+
+        
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Weather Analysis Tool - Japan</h1>
+        <form id="analyzeForm">
+            <div class="form-group">
+                <label for="station_id">Station Name:</label>
+                <select id="station_id" name="station_id" required>
+                    <option value="" disabled selected>Select a Station</option>
+                    <option value="47401">WAKKANAI</option>
+                    <option value="47402">KITAMIESASHI</option>
+                    <option value="47404">HABORO</option>
+                    <option value="47405">OMU</option>
+                    <option value="47406">RUMOI</option>
+                    <option value="47407">ASAHIKAWA</option>
+                    <option value="47409">ABASHIRI</option>
+                    <option value="47411">OTARU</option>
+                    <option value="47412">SAPPORO</option>
+                    <option value="47413">IWAMIZAWA</option>
+                    <option value="47417">OBIHIRO</option>
+                    <option value="47418">KUSHIRO</option>
+                    <option value="47420">NEMURO</option>
+                    <option value="47421">SUTTSU</option>
+                    <option value="47423">MURORAN</option>
+                    <option value="47424">TOMAKOMAI</option>
+                    <option value="47426">URAKAWA</option>
+                    <option value="47428">ESASHI</option>
+                    <option value="47430">HAKODATE</option>
+                    <option value="47433">KUTCHAN</option>
+                    <option value="47435">MOMBETSU</option>
+                    <option value="47440">HIROO</option>
+                    <option value="47512">OFUNATO</option>
+                    <option value="47520">SHINJO</option>
+                    <option value="47570">WAKAMATSU</option>
+                    <option value="47574">FUKAURA</option>
+                    <option value="47575">AOMORI</option>
+                    <option value="47576">MUTSU</option>
+                    <option value="47581">HACHINOHE</option>
+                    <option value="47582">AKITA</option>
+                    <option value="47584">MORIOKA</option>
+                    <option value="47585">MIYAKO</option>
+                    <option value="47587">SAKATA</option>
+                    <option value="47588">YAMAGATA</option>
+                    <option value="47590">SENDAI</option>
+                    <option value="47592">ISHINOMAKI</option>
+                    <option value="47595">FUKUSHIMA</option>
+                    <option value="47597">SHIRAKAWA</option>
+                    <option value="47598">ONAHAMA</option>
+                    <option value="47600">WAJIMA</option>
+                    <option value="47602">AIKAWA</option>
+                    <option value="47604">NIIGATA</option>
+                    <option value="47605">KANAZAWA</option>
+                    <option value="47606">FUSHIKI</option>
+                    <option value="47607">TOYAMA</option>
+                    <option value="47610">NAGANO</option>
+                    <option value="47612">TAKADA</option>
+                    <option value="47615">UTSUNOMIYA</option>
+                    <option value="47616">FUKUI</option>
+                    <option value="47617">TAKAYAMA</option>
+                    <option value="47618">MATSUMOTO</option>
+                    <option value="47620">SUWA</option>
+                    <option value="47622">KARUIZAWA</option>
+                    <option value="47624">MAEBASHI</option>
+                    <option value="47626">KUMAGAYA</option>
+                    <option value="47629">MITO</option>
+                    <option value="47631">TSURUGA</option>
+                    <option value="47632">GIFU</option>
+                    <option value="47636">NAGOYA</option>
+                    <option value="47637">IIDA</option>
+                    <option value="47638">KOFU</option>
+                    <option value="47639">FUJISAN</option>
+                    <option value="47640">KAWAGUCHIKO</option>
+                    <option value="47641">CHICHIBU</option>
+                    <option value="47646">TATENO</option>
+                    <option value="47648">CHOSHI</option>
+                    <option value="47649">UENO</option>
+                    <option value="47651">TSU</option>
+                    <option value="47653">IRAKO</option>
+                    <option value="47654">HAMAMATSU</option>
+                    <option value="47655">OMAEZAKI</option>
+                    <option value="47656">SHIZUOKA</option>
+                    <option value="47657">MISHIMA</option>
+                    <option value="47662">TOKYO</option>
+                    <option value="47663">OWASE</option>
+                    <option value="47666">IROZAKI</option>
+                    <option value="47668">AJIRO</option>
+                    <option value="47670">YOKOHAMA</option>
+                    <option value="47672">TATEYAMA</option>
+                    <option value="47674">KATSUURA</option>
+                    <option value="47675">OSHIMA</option>
+                    <option value="47677">MIYAKEJIMA</option>
+                    <option value="47678">HACHIJOJIMA</option>
+                    <option value="47682">CHIBA</option>
+                    <option value="47684">YOKKAICHI</option>
+                    <option value="47690">NIKKO</option>
+                    <option value="47740">SAIGO</option>
+                    <option value="47741">MATSUE</option>
+                    <option value="47742">SAKAI</option>
+                    <option value="47744">YONAGO</option>
+                    <option value="47746">TOTTORI</option>
+                    <option value="47747">TOYOOKA</option>
+                    <option value="47750">MAIZURU</option>
+                    <option value="47754">HAGI</option>
+                    <option value="47755">HAMADA</option>
+
+                </select>
+            </div>
+            <input type="hidden" id="station_name" name="station_name">            
+            <div class="form-group">
+                <label for="feature_id">Feature:</label>
+                <select id="feature_id" name="feature_id" required>
+                    <option value="" disabled selected>Select a Feature</option>
+                    <option value="1">Monthly mean air temperature</option>
+                    <option value="2">Monthly mean daily maximum temperature</option>
+                    <option value="3">Monthly mean daily minimum temperature</option>
+                    <option value="4">Monthly mean wind speed</option>
+                    <option value="5">Monthly mean sea level air pressure</option>
+                    <option value="6">Monthly mean station level pressure</option>
+                    <option value="7">Monthly mean relative humidity</option>
+                    <option value="8">Monthly mean vapor pressure</option>
+                    <option value="9">Monthly mean cloud amount</option>
+                    <option value="10">Monthly mean percentage of possible sunshine</option>
+                    <option value="11">Monthly mean global solar radiation</option>
+                    <option value="12">Monthly total of sunshine duration</option>
+                    <option value="13">Monthly total of precipitation</option>
+                    <option value="14">Monthly total of snowfall depth</option>
+                </select>
+            </div>
+            <input type="hidden" id="feature_name" name="feature_name">            
+            <div class="form-group">
+                <label for="column">Month:</label>
+                <select id="column" name="column" required>
+                    <option value="" disabled selected>Select a Month</option>
+                    <option value="Jan">January</option>
+                    <option value="Feb">February</option>
+                    <option value="Mar">March</option>
+                    <option value="Apr">April</option>
+                    <option value="May">May</option>
+                    <option value="Jun">June</option>
+                    <option value="Jul">July</option>
+                    <option value="Aug">August</option>
+                    <option value="Sep">September</option>
+                    <option value="Oct">October</option>
+                    <option value="Nov">November</option>
+                    <option value="Dec">December</option>
+                </select>
+            </div>            
+            <div class="form-group">
+                <label for="zscore_threshold">Z-Score Threshold:</label>
+                <input type="number" id="zscore_threshold" name="zscore_threshold" value="3" step="0.1">
+            </div>
+            <div class="form-group">
+                <label for="iqr_multiplier">IQR Multiplier:</label>
+                <input type="number" id="iqr_multiplier" name="iqr_multiplier" value="1.5" step="0.1">
+            </div>
+            <div class="form-group">
+                <label for="stddev_multiplier">Mean-StdDev Multiplier:</label>
+                <input type="number" id="stddev_multiplier" name="stddev_multiplier" value="3" step="0.1">
+            </div>
+            <div class="buttons">
+                <button type="submit" id="analyzeBtn">Analyze Dataset</button>
+                <button type="button" id="downloadBtn" disabled>Download Analysis</button>
+            </div>
+        </form>
+        <div id="plot-container">
+            <h2>Analysis Result</h2>
+            <div id="plot"></div>
+        </div>
+    </div>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+        const form = document.getElementById("analyzeForm");
+        const plotDiv = document.getElementById("plot");
+        const downloadBtn = document.getElementById("downloadBtn");
+    
+        const stationDropdown = document.getElementById('station_id');
+        const stationNameInput = document.getElementById('station_name');
+        const featureDropdown = document.getElementById('feature_id');
+        const featureNameInput = document.getElementById('feature_name');
+    
+        let lastAnalysisFile = null; // Variable to store the last generated analysis file URL
+    
+        // Update the hidden station_name field when the station_id dropdown changes
+        stationDropdown.addEventListener('change', () => {
+            // Get the full text of the selected option
+            const selectedOption = stationDropdown.options[stationDropdown.selectedIndex].text;
+            // Update the hidden field with the station name
+            stationNameInput.value = selectedOption;
+        });
+    
+        // Update the hidden feature_name field when the feature_id dropdown changes
+        featureDropdown.addEventListener('change', () => {
+            // Get the full text of the selected option
+            const selectedOption = featureDropdown.options[featureDropdown.selectedIndex].text;
+            // Update the hidden field with the feature name
+            featureNameInput.value = selectedOption;
+        });
+    
+        // Initialize on page load in case default options are selected
+        stationDropdown.dispatchEvent(new Event('change'));
+        featureDropdown.dispatchEvent(new Event('change'));
+    
+        // Handle form submission
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+    
+            const formData = new FormData(form);
+            downloadBtn.disabled = true; // Disable the download button during analysis
+    
+            try {
+                const response = await fetch("/analyze_single", {
+                    method: "POST",
+                    body: formData,
+                });
+    
+                if (response.ok) {
+                    const data = await response.json();
+                    lastAnalysisFile = data.analysis_file_url; // Store the static URL for the analysis file
+    
+                    // Render the interactive plot with Plotly
+                    Plotly.react(plotDiv, data.data, data.layout);
+    
+                    downloadBtn.disabled = false; // Enable the download button
+                } else {
+                    const error = await response.json();
+                    alert(error.error || "An error occurred");
+                }
+            } catch (err) {
+                alert("An unexpected error occurred: " + err.message);
+            }
+        });
+    
+        // Handle download button click
+        downloadBtn.addEventListener("click", () => {
+            if (lastAnalysisFile) {
+                // Redirect directly to the static analysis file URL
+                window.location.href = lastAnalysisFile;
+            }
+        });
+    </script>
+    
+    
+</body>
+</html>
