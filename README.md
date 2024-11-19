@@ -31,36 +31,56 @@ The **Weather Analysis Tool** allows users to analyze historical weather data fr
 #### 1. Z-Score Method
 - **Definition**: Flags data points that deviate significantly from the mean in terms of standard deviations.
 - **Formula**:  
-  \[
-  Z = \frac{(X - \mu)}{\sigma}
-  \]  
-  Where \(X\) = data point, \(\mu\) = mean, \(\sigma\) = standard deviation.
-- **Threshold**: Data points with \(|Z| > 3\) are anomalies.
+  Z = (X - μ) / σ  
+  Where:
+  - X = data point
+  - μ = mean
+  - σ = standard deviation
+- **Custom Parameter**: 
+  - **Z-Score Threshold**: This is the value the user sets (e.g., 3). It determines how many standard deviations away from the mean a data point must be to be considered an anomaly.
+  - **Effect**: 
+    - Lowering the threshold (e.g., 2) will make the detection more sensitive, flagging more anomalies.
+    - Raising the threshold (e.g., 4) will make the detection stricter, flagging fewer anomalies.
+
+---
 
 #### 2. IQR Method
 - **Definition**: Identifies outliers based on the interquartile range (IQR).
 - **Formula**:  
-  \[
-  IQR = Q3 - Q1
-  \]  
-  - **Lower Bound**: \(Q1 - (1.5 \times IQR)\)  
-  - **Upper Bound**: \(Q3 + (1.5 \times IQR)\)  
+  IQR = Q3 - Q1  
+  - **Lower Bound**: Q1 - (1.5 × IQR)  
+  - **Upper Bound**: Q3 + (1.5 × IQR)  
   Points outside this range are flagged as anomalies.
+- **Custom Parameter**: 
+  - **IQR Multiplier**: This is the value the user sets (e.g., 1.5). It determines how far outside the interquartile range (IQR) a point must be to be considered an anomaly.
+  - **Effect**:
+    - Lowering the multiplier (e.g., 1) will detect more anomalies by tightening the range.
+    - Increasing the multiplier (e.g., 2) will loosen the range, reducing the number of flagged anomalies.
+
+---
 
 #### 3. Mean-StdDev Method
 - **Definition**: Flags data points outside a specified range of the mean.
 - **Formula**:  
-  \[
-  \text{Anomaly Range} = \mu \pm (k \times \sigma)
-  \]  
-  Where \(k\) = user-defined multiplier.
+  Anomaly Range = μ ± (k × σ)  
+  Where:
+  - k = user-defined multiplier
+  - μ = mean
+  - σ = standard deviation
+- **Custom Parameter**: 
+  - **Mean-StdDev Multiplier (k)**: This is the value the user sets (e.g., 3). It determines the number of standard deviations from the mean used to define the anomaly range.
+  - **Effect**:
+    - Lowering the multiplier (e.g., 2) will detect more anomalies by narrowing the acceptable range.
+    - Raising the multiplier (e.g., 4) will reduce the number of flagged anomalies by broadening the acceptable range.
 
 ---
 
-## Use Cases
-- **Climate Change Research**: Detect long-term shifts in weather patterns.
-- **Environmental Risk Assessment**: Identify extreme weather events or irregular trends.
-- **Operational Planning**: Use historical data to inform agriculture, infrastructure, or tourism decisions.
+### Summary of Custom Parameters
+1. **Z-Score Threshold**: Adjusts the sensitivity of anomaly detection based on standard deviations.
+2. **IQR Multiplier**: Controls the range width for detecting outliers using the interquartile method.
+3. **Mean-StdDev Multiplier**: Sets the tolerance level for anomalies based on the mean and standard deviation.
+
+By adjusting these parameters, users can tailor the anomaly detection to the specific characteristics of their dataset or analysis goals.
 
 ---
 
