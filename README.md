@@ -106,3 +106,11 @@ By adjusting these parameters, users can tailor the anomaly detection to the spe
 ## Data Source
 The tool uses historical weather data from the **Japan Meteorological Agency**:
 [https://www.data.jma.go.jp/obd/stats/data/en/smp/index.html](https://www.data.jma.go.jp/obd/stats/data/en/smp/index.html)
+
+---
+
+## Contact
+
+If you have any questions, feedback, or require further assistance, feel free to reach out:
+
+**Email**: [hamza.zarfaoui@u.nus.edu](mailto:hamza.zarfaoui@u.nus.edu)
